@@ -20,6 +20,7 @@ Incluye autenticación con **JWT**, roles (usuario y administrador), documentaci
 
 
 ## 📂 estructura del proyecto
+```
 sistema-incidencias-backend/
 │── src/
 │ ├── config/ # Configuración (DB, Swagger)
@@ -31,7 +32,7 @@ sistema-incidencias-backend/
 │── .env # Variables de entorno
 │── package.json
 │── README.md
-
+```
 
 ---
 
