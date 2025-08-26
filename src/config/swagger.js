@@ -7,6 +7,9 @@ import { fileURLToPath } from "url";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+// Tomamos la URL del servidor desde variables de entorno o usamos localhost por defecto
+const SERVER_URL = process.env.SERVER_URL || "http://localhost:3000/api"
+
 const options = {
     definition: {
         openapi: "3.0.0",
@@ -17,8 +20,8 @@ const options = {
         },
         servers: [
             {
-                url: "http://localhost:3000/api",
-                description: "Servidor local",
+                url: SERVER_URL,
+                description: "Servidor API",
             },
         ],
         components: {
