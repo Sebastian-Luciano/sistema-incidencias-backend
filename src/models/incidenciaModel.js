@@ -18,25 +18,25 @@ export const obtenerIncidenciasPaginadas = async ({ page = 1, limit = 10, estado
 
     if (categoria_id) {
         where += " AND i.categoria_id = ?";
-        params.push(estado_id);
+        params.push(categoria_id);
     }
 
     if (q) {
-        where += " AND (i.titulo LIKE ? OR i.description LIKE ?)";
+        where += " AND (i.titulo LIKE ? OR i.descripcion LIKE ?)";
         params.push(`%${q}%`, `%${q}%`);
     }
 
     // Consultar principal
     const [rows] = await pool.query(
         `
-        SELECT I.id_incidencia, 1.titulo, i.descripcion, i.fecha_registro, 
-            e.nombre AS estado_nombre, c.nombre AS categoria_nombtre,
+        SELECT i.id_incidencia, i.titulo, i.descripcion, i.fecha_registro, 
+            e.nombre AS estado_nombre, c.nombre AS categoria_nombre,
             u.nombre AS usuario_nombre, a.nombre AS administrador_nombre
         FROM incidencia i
         INNER JOIN estado e ON i.estado_id = e.id_estado
         INNER JOIN categoria c ON i.categoria_id = c.id_categoria
         INNER JOIN usuario u ON i.usuario_id = u.id_usuario
-        INNER JOIN administrador a ON i.administrador_id = a.id_admin
+        LEFT JOIN administrador a ON i.administrador_id = a.id_admin
         ${where}
         ORDER BY i.fecha_registro DESC
         LIMIT ? OFFSET ?
@@ -106,11 +106,14 @@ export const obtenerIncidenciaPorId = async (id) => {
 // crear nueva incidencia
 export const crearIncidencia = async (data) => {
     const { titulo, descripcion, estado_id, categoria_id, usuario_id, administrador_id } = data;
+
+    const adminIdFinal = administrador_id ?? 2;
+
     const [result] = await pool.query(`
         INSERT INTO incidencia (titulo, descripcion, fecha_registro, estado_id, categoria_id, usuario_id, administrador_id)
         VALUES (?, ?, NOW(), ?, ?, ?, ?)
-        `, [titulo, descripcion, estado_id, categoria_id, usuario_id, administrador_id]);
-    return { id_incidencia: result.insertId, ...data, fecha_registro: new Date() };
+        `, [titulo, descripcion, estado_id, categoria_id, usuario_id, adminIdFinal]);
+    return { id_incidencia: result.insertId, ...data, administrador_id: adminIdFinal, fecha_registro: new Date() };
 };
 
 // Actualizar incidencia
