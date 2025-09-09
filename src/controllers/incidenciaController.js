@@ -42,16 +42,20 @@ import {
  };
 
  /**
-  * 🔹 GET: Incidencias del usuario autenticodo (paginadas)
+  * 🔹 GET: Incidencias del usuario autenticodo (paginadas con filtros)
   */
  // GET las mias (USUARIO ve solo las suyas)
  export const getIncidenciasDelUsuario = async (req, res) => {
     try {
-        const { page = 1, limit = 10 } = req.query;
+        const { page = 1, limit = 10, estado_id, categoria_id, q } = req.query;
+
         const { rows, total } = await obtenerIncidenciasPorUsuarioPaginadas({
             usuarioId: req.user.sub,
             page: parseInt(page, 10),
             limit: parseInt(limit, 10),
+            estado_id,
+            categoria_id,
+            q,
         });
 
         res.json({

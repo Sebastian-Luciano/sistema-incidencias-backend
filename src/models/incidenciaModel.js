@@ -54,10 +54,28 @@ export const obtenerIncidenciasPaginadas = async ({ page = 1, limit = 10, estado
 };
 
 /**
- * 🔹 Obtener incidencias del USUARIO autenticado (con paginación)
+ * 🔹 Obtener incidencias del USUARIO autenticado (con paginación y filtros)
  */
-export const obtenerIncidenciasPorUsuarioPaginadas = async ({ usuarioId, page = 1, limit = 10 }) => {
+export const obtenerIncidenciasPorUsuarioPaginadas = async ({ usuarioId, page = 1, limit = 10, estado_id, categoria_id, q }) => {
     const offset = (page - 1) * limit;
+
+    let where = "WHERE i.usuario_id = ?";
+    const params = [usuarioId];
+
+    if (estado_id) {
+        where += " AND i.estado_id = ?";
+        params.push(estado_id);
+    }
+
+    if (categoria_id) {
+        where += " AND i.categoria_id = ?";
+        params.push(categoria_id);
+    }
+
+    if (q) {
+        where += " AND (i.titulo LIKE ? OR i.descripcion LIKE ?)";
+        params.push(`%${q}%`, `%${q}%`);
+    }
 
     const [rows] = await pool.query(
         `
@@ -66,16 +84,16 @@ export const obtenerIncidenciasPorUsuarioPaginadas = async ({ usuarioId, page = 
         FROM incidencia i
         INNER JOIN estado e ON i.estado_id = e.id_estado
         INNER JOIN categoria c ON i.categoria_id = c.id_categoria
-        WHERE i.usuario_id = ?
+        ${where}
         ORDER BY i.fecha_registro DESC
         LIMIT ? OFFSET ? 
         `,
-        [usuarioId, limit, offset]
+        [...params, limit, offset]
     );
 
     const [countRows] = await pool.query(
-        "SELECT COUNT(*) AS total FROM incidencia WHERE usuario_id = ?",
-        [usuarioId]
+        `SELECT COUNT(*) AS total FROM incidencia i ${where}`,
+        params
     );
 
     return { rows, total: countRows[0].total };
