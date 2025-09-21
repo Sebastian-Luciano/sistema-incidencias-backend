@@ -2,6 +2,7 @@
 import { 
     obtenerHistoriales,
     obtenerHistorialPorId,
+    obtenerHistorialesPorIncidencia,
     crearHistorial,
     actualizarHistorial,
     eliminarHistorial
@@ -33,6 +34,21 @@ export const getHistorial = async (req, res) => {
         res.status(500).json({ mensaje: "Error al obtener historial", error })
     }
 };
+
+
+// GET: Historial filtrado por incidencia
+export const getHistorialPorIncidencia = async (req, res) => {
+    try {
+        const incidenciaId = parseInt(req.params.incidenciaId, 10);
+        if (Number.isNaN(incidenciaId)) return res.status(400).json({ mensaje: "ID inválida" });
+
+        const historiales = await obtenerHistorialesPorIncidencia(incidenciaId);
+        res.json(historiales);
+    } catch (error) {
+        res.status(500).json({ mensaje: "Error al obtener historial por incidencia", error });
+    }
+};
+
 
 // POST: Crear historial
 export const postHistorial = async (req, res) => {

@@ -1,8 +1,9 @@
 // src/routes/historialRoutes.js
 import express from 'express';
-import { 
+import {
     getHistoriales,
     getHistorial,
+    getHistorialPorIncidencia,
     postHistorial,
     putHistorial,
     deleteHistorial
@@ -56,6 +57,30 @@ router.get("/", requireAuth, getHistoriales);
  *         description: Historial no encontrado
  */
 router.get("/:id", requireAuth, getHistorial);
+
+/**
+ * @swagger
+ * /api/historiales/incidencia/{incidenciaId}:
+ *   get:
+ *     summary: Obtiene el historial de una incidencia específica
+ *     tags: [Historiales]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: incidenciaId
+ *         required: true
+ *         schema:
+ *           type: integer
+ *         description: ID de la incidencia
+ *     responses:
+ *       200:
+ *         description: Lista de cambios asociados a la incidencia
+ *       404:
+ *         description: No se encontraron registros para esta incidencia
+ */
+router.get("/incidencia/:incidenciaId", requireAuth, getHistorialPorIncidencia);
+
 
 // Escritura: solo admins
 // requireAuth: obliga a la persona que esté logueado con un token válido

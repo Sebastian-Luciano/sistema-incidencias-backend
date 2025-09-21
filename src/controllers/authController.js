@@ -15,7 +15,7 @@ export const register = async (req, res) => {
     try {
         const { nombre, correo, contraseña } = req.body;
 
-        if(!nombre || !correo || !contraseña) {
+        if (!nombre || !correo || !contraseña) {
             return res.status(400).json({ mensaje: 'Falta campos obligatorios' });
         }
 
@@ -27,7 +27,7 @@ export const register = async (req, res) => {
         }
 
         const passwordHash = await hashPassword(contraseña);
-        const nuevo = await crearUsuario( {nombre, correo, contraseña: passwordHash });
+        const nuevo = await crearUsuario({ nombre, correo, passwordHash });
 
         const token = signToken({
             sub: nuevo.id_usuario,
@@ -49,12 +49,12 @@ export const register = async (req, res) => {
 export const login = async (req, res) => {
     try {
         const { correo, contraseña } = req.body;
-        if (!correo || !contraseña){
+        if (!correo || !contraseña) {
             return res.status(400).json({ mensaje: 'Faltan credenciales' })
         }
 
         // 1) Intenta como usuario
-        const u = await obtenerUsuarioPorCorreo (correo);
+        const u = await obtenerUsuarioPorCorreo(correo);
         if (u) {
             const ok = await comparePassword(contraseña, u['contraseña']);
             if (!ok) return res.status(401).json({ mensaje: 'Credenciales invalidas' });
@@ -81,8 +81,8 @@ export const login = async (req, res) => {
             });
         }
 
-        // 3) Ninguno
-        return res.status(401).json({ mensaje: 'Credenciales inválidas' });
+        // 3) Correo no existe en ningún lado
+        return res.status(404).json({ mensaje: 'Correo no registrado. Regístrate para continuar.' });
     } catch (error) {
         res.status(500).json({ mensaje: 'Error en login', error });
     }

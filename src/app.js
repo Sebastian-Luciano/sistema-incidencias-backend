@@ -1,6 +1,6 @@
 import express from 'express';
 import cors from 'cors';
-import { swaggerSpec, swaggerUiMiddleware} from "./config/swagger.js";
+import { swaggerSpec, swaggerUiMiddleware } from "./config/swagger.js";
 
 import usuarioRoutes from './routes/usuarioRoutes.js';
 import administradorRoutes from './routes/administradorRoutes.js';
