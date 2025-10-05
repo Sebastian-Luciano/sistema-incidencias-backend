@@ -1,0 +1,83 @@
+[
+  {
+    "id": 1,
+    "keywords": [
+      "hola",
+      "buenas",
+      "hi"
+    ],
+    "respuesta": "👋 ¡Hola! Soy tu asistente virtual. ¿En qué puedo ayudarte hoy?"
+  },
+  {
+    "id": 2,
+    "keywords": [
+      "registrar",
+      "incidencia"
+    ],
+    "respuesta": "📝 Para registrar una incidencia, ve al menú ➡️ *Nueva Incidencia* y completa el formulario con título, descripción y categoría."
+  },
+  {
+    "id": 3,
+    "keywords": [
+      "mis incidencias",
+      "listar incidencias"
+    ],
+    "respuesta": "📋 Puedes ver tus incidencias en el menú *Mis Incidencias*, donde se listan todas tus solicitudes registradas."
+  },
+  {
+    "id": 4,
+    "keywords": [
+      "estado",
+      "proceso"
+    ],
+    "respuesta": "📊 Los estados de una incidencia indican el progreso: 🔴 Pendiente → 🟡 En proceso → 🟢 Resuelto."
+  },
+  {
+    "id": 5,
+    "keywords": [
+      "categoría",
+      "tipo"
+    ],
+    "respuesta": "📂 Las categorías ayudan a clasificar las incidencias. Ejemplo: *Red, Hardware, Software, Soporte general*."
+  },
+  {
+    "id": 6,
+    "keywords": [
+      "usuario",
+      "registrar usuario"
+    ],
+    "respuesta": "👤 Puedes registrarte desde la página de *Registro*. Solo necesitas tu nombre, correo y contraseña."
+  },
+  {
+    "id": 7,
+    "keywords": [
+      "contraseña",
+      "cambiar contraseña"
+    ],
+    "respuesta": "🔐 Por ahora, deberás comunicarte con el administrador para cambiar tu contraseña."
+  },
+  {
+    "id": 8,
+    "keywords": [
+      "contacto",
+      "soporte",
+      "administrador"
+    ],
+    "respuesta": "📧 Puedes contactar al administrador TI al correo: admin1@example.com"
+  },
+  {
+    "id": 9,
+    "keywords": [
+      "hola",
+      "hello"
+    ],
+    "respuesta": "buenos dias patrones"
+  },
+  {
+    "id": 10,
+    "keywords": [
+      "hola"
+    ],
+    "respuesta": "lindisimo 🍉"
+  }
+]

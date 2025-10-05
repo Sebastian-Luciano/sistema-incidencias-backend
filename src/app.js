@@ -9,6 +9,7 @@ import categoriaRoutes from './routes/categoriaRoutes.js';
 import incidenciaRoutes from './routes/incidenciaRoutes.js';
 import historialRoutes from './routes/historialRoutes.js';
 import authRoutes from './routes/authRoutes.js';
+import iaRoutes from './routes/iaRoutes.js';
 
 const app = express();
 
@@ -29,6 +30,7 @@ app.use('/api/estados', estadoRoutes);
 app.use('/api/categorias', categoriaRoutes);
 app.use('/api/incidencias', incidenciaRoutes);
 app.use('/api/historiales', historialRoutes);
+app.use('/api/ia', iaRoutes);
 
 
 app.get('/', (req, res) => {
