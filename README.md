@@ -123,6 +123,4 @@ Cuando presionas el botón verde:
 - **Pull Request** = una propuesta de cambio.  
 - **Merge Pull Request** = aceptar e integrar el cambio en la rama principal.  
 
----
 
-## 👉 ¿Quieres que preparemos también un **flujo de commits con mensajes profesionales** (usando convenciones como *feat, fix, docs, chore*) para que tu Git se vea mucho más pro en GitHub?
